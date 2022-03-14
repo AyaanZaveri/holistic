@@ -71,7 +71,7 @@ const Home = () => {
       // Hands
 
       drawConnectors(canvasCtx, results.leftHandLandmarks, HAND_CONNECTIONS, {
-        color: "#CC0000",
+        color: "white",
         lineWidth: 5,
       });
       drawLandmarks(canvasCtx, results.leftHandLandmarks, {
@@ -83,7 +83,7 @@ const Home = () => {
         },
       });
       drawConnectors(canvasCtx, results.rightHandLandmarks, HAND_CONNECTIONS, {
-        color: "#00CC00",
+        color: "white",
         lineWidth: 5,
       });
       drawLandmarks(canvasCtx, results.rightHandLandmarks, {
@@ -135,13 +135,13 @@ const Home = () => {
     <div className="flex h-screen items-center justify-center gap-3">
       <Webcam
         ref={webcamRef}
-        className="h-[480px] w-[640px] rounded-lg text-center shadow-xl border"
+        className="h-[480px] w-[640px] rounded-xl shadow-xl border hover:ring-2 hover:ring-blue-500 transition duration-200 ease-in-out"
         mirrored={true}
       />
 
       <canvas
         ref={canvasRef}
-        className="h-[480px] w-[640px] rounded-lg text-center shadow-xl border"
+        className="h-[480px] w-[640px] rounded-xl shadow-xl border hover:ring-2 hover:ring-blue-500 transition duration-200 ease-in-out"
         style={{
           transform: "scaleX(-1)",
         }}
