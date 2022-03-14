@@ -10,6 +10,8 @@ import {
   HAND_CONNECTIONS,
   Holistic,
   POSE_CONNECTIONS,
+  POSE_LANDMARKS_LEFT,
+  POSE_LANDMARKS_RIGHT,
 } from "@mediapipe/holistic";
 import { lerp } from "@mediapipe/drawing_utils";
 
@@ -39,24 +41,42 @@ const Home = () => {
       results.rightHandLandmarks ||
       results.leftHandLandmarks
     ) {
+      // Pose
+
       drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, {
-        color: "#00FF00",
-        lineWidth: 4,
+        color: "white",
       });
-      drawLandmarks(canvasCtx, results.poseLandmarks, {
-        color: "#FF0000",
-        lineWidth: 2,
-      });
+      drawLandmarks(
+        canvasCtx,
+        Object.values(POSE_LANDMARKS_LEFT).map(
+          (index) => results.poseLandmarks[index]
+        ),
+        { visibilityMin: 0.65, color: "white", fillColor: "rgb(255,138,0)" }
+      );
+      drawLandmarks(
+        canvasCtx,
+        Object.values(POSE_LANDMARKS_RIGHT).map(
+          (index) => results.poseLandmarks[index]
+        ),
+        { visibilityMin: 0.65, color: "white", fillColor: "rgb(0,217,231)" }
+      );
+
+      // Face
+
       // drawConnectors(canvasCtx, results.faceLandmarks, FACEMESH_TESSELATION, {
       //   color: "#C0C0C070",
       //   lineWidth: 1,
       // });
+
+      // Hands
+
       drawConnectors(canvasCtx, results.leftHandLandmarks, HAND_CONNECTIONS, {
         color: "#CC0000",
         lineWidth: 5,
       });
       drawLandmarks(canvasCtx, results.leftHandLandmarks, {
-        color: "#00FF00",
+        color: "white",
+        fillColor: "rgb(255,138,0)",
         lineWidth: 2,
         radius: (data) => {
           return lerp(data.from.z, -0.15, 0.1, 10, 1);
@@ -67,7 +87,8 @@ const Home = () => {
         lineWidth: 5,
       });
       drawLandmarks(canvasCtx, results.rightHandLandmarks, {
-        color: "#FF0000",
+        color: "white",
+        fillColor: "rgb(0,217,231)",
         lineWidth: 2,
         radius: (data) => {
           return lerp(data.from.z, -0.15, 0.1, 10, 1);
