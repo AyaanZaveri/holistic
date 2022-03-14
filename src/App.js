@@ -18,7 +18,6 @@ import { lerp } from "@mediapipe/drawing_utils";
 const Home = () => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  var camera = null;
 
   const onResults = async (results) => {
     canvasRef.current.width = webcamRef.current.video.videoWidth;
@@ -129,7 +128,7 @@ const Home = () => {
       });
       camera.start();
     }
-  });
+  }, []);
 
   return (
     <div className="flex h-screen items-center justify-center gap-3">
