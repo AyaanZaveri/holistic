@@ -20,6 +20,7 @@ const Home = () => {
   const canvasRef = useRef(null);
 
   const onResults = async (results) => {
+
     canvasRef.current.width = webcamRef.current.video.videoWidth;
     canvasRef.current.height = webcamRef.current.video.videoHeight;
 
@@ -134,7 +135,7 @@ const Home = () => {
     <div className="flex h-screen items-center justify-center gap-3">
       <Webcam
         ref={webcamRef}
-        className="h-[480px] w-[640px] rounded-xl shadow-xl border hover:ring-2 hover:ring-blue-500 transition duration-200 ease-in-out"
+        className="h-[480px] w-[640px] rounded-xl shadow-xl border hidden hover:ring-2 hover:ring-blue-500 transition duration-200 ease-in-out"
         mirrored={true}
       />
 
