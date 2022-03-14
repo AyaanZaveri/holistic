@@ -137,13 +137,13 @@ const Home = () => {
       <div className="flex flex-row gap-3">
         <Webcam
           ref={webcamRef}
-          className={`h-[480px] w-[640px] rounded-xl shadow-xl border ${toggle ? "block" : "hidden"} hover:ring-2 hover:ring-blue-500`}
+          className={`h-[480px] w-[640px] rounded-xl shadow-xl border ${toggle ? "block" : "hidden"} hover:ring-2 hover:ring-blue-500 ring-offset-2 transition-all delay-300 ease-in-out`}
           mirrored={true}
         />
 
         <canvas
           ref={canvasRef}
-          className="h-[480px] w-[640px] rounded-xl shadow-xl border hover:ring-2 hover:ring-blue-500"
+          className="h-[480px] w-[640px] rounded-xl shadow-xl border hover:ring-2 hover:ring-blue-500 ring-offset-2 transition-all delay-300 ease-in-out"
           style={{
             transform: "scaleX(-1)",
           }}
