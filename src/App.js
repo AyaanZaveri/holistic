@@ -6,7 +6,7 @@ import {
 } from "@mediapipe/drawing_utils/drawing_utils";
 import { Camera } from "@mediapipe/camera_utils/camera_utils";
 import {
-  FACEMESH_TESSELATION,
+  // FACEMESH_TESSELATION,
   HAND_CONNECTIONS,
   Holistic,
   POSE_CONNECTIONS,
