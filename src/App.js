@@ -19,8 +19,9 @@ const Home = () => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
-  const onResults = async (results) => {
+  const [toggle, setToggle] = useState(false);
 
+  const onResults = async (results) => {
     canvasRef.current.width = webcamRef.current.video.videoWidth;
     canvasRef.current.height = webcamRef.current.video.videoHeight;
 
@@ -135,17 +136,29 @@ const Home = () => {
     <div className="flex h-screen items-center justify-center gap-3">
       <Webcam
         ref={webcamRef}
-        className="h-[480px] w-[640px] rounded-xl shadow-xl border hidden hover:ring-2 hover:ring-blue-500 transition duration-200 ease-in-out"
+        className="h-[480px] w-[640px] rounded-xl shadow-xl border hidden hover:ring-2 hover:ring-blue-500"
         mirrored={true}
       />
 
       <canvas
         ref={canvasRef}
-        className="h-[480px] w-[640px] rounded-xl shadow-xl border hover:ring-2 hover:ring-blue-500 transition duration-200 ease-in-out"
+        className="h-[480px] w-[640px] rounded-xl shadow-xl border hover:ring-2 hover:ring-blue-500"
         style={{
           transform: "scaleX(-1)",
         }}
       />
+
+      <div
+        className={`md:w-14 md:h-7 w-12 h-6 flex items-center bg-gray-100 border rounded-full p-1 cursor-pointer`}
+        onClick={() => {
+          setToggle(!toggle);
+        }}
+      >
+        {/* Switch */}
+        <div
+          className={`inline-flex bg-white border h-5 w-5 rounded-full shadow-md transform duration-300 ease-in-out ${toggle ? "translate-x-full" : ""}`}
+        ></div>
+      </div>
       {/* <h1 className="text-2xl">
         Predictions:{' '}
         {predictions.length ? predictions[0].handInVideoConfidence : null}
