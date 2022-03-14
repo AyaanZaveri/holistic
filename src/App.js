@@ -11,6 +11,7 @@ import {
   Holistic,
   POSE_CONNECTIONS,
 } from "@mediapipe/holistic";
+import { lerp } from "@mediapipe/drawing_utils";
 
 const Home = () => {
   const webcamRef = useRef(null);
@@ -57,6 +58,9 @@ const Home = () => {
       drawLandmarks(canvasCtx, results.leftHandLandmarks, {
         color: "#00FF00",
         lineWidth: 2,
+        radius: (data) => {
+          return lerp(data.from.z, -0.15, 0.1, 10, 1);
+        },
       });
       drawConnectors(canvasCtx, results.rightHandLandmarks, HAND_CONNECTIONS, {
         color: "#00CC00",
@@ -65,6 +69,9 @@ const Home = () => {
       drawLandmarks(canvasCtx, results.rightHandLandmarks, {
         color: "#FF0000",
         lineWidth: 2,
+        radius: (data) => {
+          return lerp(data.from.z, -0.15, 0.1, 10, 1);
+        },
       });
     }
     canvasCtx.restore();
@@ -114,6 +121,9 @@ const Home = () => {
       <canvas
         ref={canvasRef}
         className="h-[480px] w-[640px] rounded-lg text-center shadow-xl border"
+        style={{
+          transform: "scaleX(-1)",
+        }}
       />
       {/* <h1 className="text-2xl">
         Predictions:{' '}
