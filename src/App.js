@@ -3,6 +3,7 @@ import React, { useRef, useEffect, useState } from "react";
 import {
   drawConnectors,
   drawLandmarks,
+  lerp
 } from "@mediapipe/drawing_utils/drawing_utils";
 import { Camera } from "@mediapipe/camera_utils/camera_utils";
 import {
@@ -13,7 +14,6 @@ import {
   POSE_LANDMARKS_LEFT,
   POSE_LANDMARKS_RIGHT,
 } from "@mediapipe/holistic";
-import { lerp } from "@mediapipe/drawing_utils";
 
 const Home = () => {
   const webcamRef = useRef(null);
