@@ -35,10 +35,12 @@ const Home = () => {
       ? results?.rightHandLandmarks[8]
       : 0;
 
-    // axios.post("http://localhost:8182/pose", {
+    // axios.post("http://localhost:8000/pose", {
     //   x: indexX,
     //   y: indexY
     // });
+
+    console.lgo(indexX, indexY)
 
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
     canvasCtx.drawImage(
