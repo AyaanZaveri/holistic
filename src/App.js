@@ -138,18 +138,18 @@ const Home = () => {
 
   return (
     <div className="flex flex-col h-screen items-center justify-center gap-3">
-      <div className="flex flex-row gap-3">
+      <div className="flex flex-row items-center justify-center flex-wrap gap-3">
         <Webcam
           ref={webcamRef}
-          className={`h-[480px] w-[640px] rounded-xl shadow-xl border ${
+          className={`rounded-xl shadow-xl border ${
             showVideo ? "block" : "hidden"
-          } hover:ring-2 hover:ring-[rgb(0,217,231)] ring-offset-2 transition-all delay-300 ease-in-out`}
+          } hover:ring-2 hover:ring-[rgb(0,217,231)] w-11/12 max-w-lg ring-offset-2 transition-all delay-300 ease-in-out`}
           mirrored={true}
         />
 
         <canvas
           ref={canvasRef}
-          className="h-[480px] w-[640px] rounded-xl shadow-xl border hover:ring-2 hover:ring-[rgb(255,138,0)] ring-offset-2 transition-all delay-300 ease-in-out"
+          className="rounded-xl w-11/12 max-w-lg shadow-xl border hover:ring-2 hover:ring-[rgb(255,138,0)] ring-offset-2 transition-all delay-300 ease-in-out"
           style={{
             transform: "scaleX(-1)",
           }}
