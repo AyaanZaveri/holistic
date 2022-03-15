@@ -14,6 +14,7 @@ import {
   POSE_LANDMARKS_LEFT,
   POSE_LANDMARKS_RIGHT,
 } from "@mediapipe/holistic";
+import axios from "axios"
 
 const Home = () => {
   const webcamRef = useRef(null);
@@ -30,12 +31,14 @@ const Home = () => {
     const canvasCtx = canvasElement.getContext("2d");
     canvasCtx.save();
 
-    const drawCanvasElement = drawCanvasRef.current;
-    const drawCanvasCtx = drawCanvasElement.getContext("2d");
+    const { x: indexX, y: indexY } = results.rightHandLandmarks
+      ? results?.rightHandLandmarks[8]
+      : 0;
 
-    const drawRect = (x, y) => {
-      drawCanvasCtx.fillRect(x, y, 5, 5);
-    }
+    // axios.post("http://localhost:8182/pose", {
+    //   x: indexX,
+    //   y: indexY
+    // });
 
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
     canvasCtx.drawImage(
@@ -161,11 +164,6 @@ const Home = () => {
           style={{
             transform: "scaleX(-1)",
           }}
-        />
-
-        <canvas
-          ref={drawCanvasRef}
-          className="rounded-xl w-11/12 max-w-xl shadow-xl border hover:ring-2 hover:ring-[rgb(255,138,0)] ring-offset-2 transition-all delay-300 ease-in-out"
         />
       </div>
 
