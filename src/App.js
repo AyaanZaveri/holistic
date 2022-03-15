@@ -18,6 +18,7 @@ import {
 const Home = () => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
+  const drawCanvasRef = useRef(null);
 
   const [showVideo, setShowVideo] = useState(false);
 
@@ -28,6 +29,13 @@ const Home = () => {
     const canvasElement = canvasRef.current;
     const canvasCtx = canvasElement.getContext("2d");
     canvasCtx.save();
+
+    const drawCanvasElement = drawCanvasRef.current;
+    const drawCanvasCtx = drawCanvasElement.getContext("2d");
+
+    const drawRect = (x, y) => {
+      drawCanvasCtx.fillRect(x, y, 5, 5);
+    }
 
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
     canvasCtx.drawImage(
@@ -153,6 +161,11 @@ const Home = () => {
           style={{
             transform: "scaleX(-1)",
           }}
+        />
+
+        <canvas
+          ref={drawCanvasRef}
+          className="rounded-xl w-11/12 max-w-xl shadow-xl border hover:ring-2 hover:ring-[rgb(255,138,0)] ring-offset-2 transition-all delay-300 ease-in-out"
         />
       </div>
 
