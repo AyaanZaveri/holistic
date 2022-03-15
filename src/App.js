@@ -21,39 +21,6 @@ const Home = () => {
 
   const [showVideo, setShowVideo] = useState(false);
 
-  const loadModel = async () => {
-    const holistic = new Holistic({
-      locateFile: (file) => {
-        return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.3.1620694839/${file}`;
-      },
-    });
-    holistic.setOptions({
-      modelComplexity: 1,
-      smoothLandmarks: true,
-      enableSegmentation: true,
-      smoothSegmentation: true,
-      refineFaceLandmarks: true,
-      minDetectionConfidence: 0.5,
-      minTrackingConfidence: 0.5,
-    });
-
-    holistic.onResults(onResults);
-
-    if (
-      typeof webcamRef.current !== "undefined" &&
-      webcamRef.current !== null
-    ) {
-      const camera = new Camera(webcamRef.current.video, {
-        onFrame: async () => {
-          await holistic.send({ image: webcamRef.current.video });
-        },
-        width: 1280,
-        height: 720,
-      });
-      camera.start();
-    }
-  };
-
   const onResults = async (results) => {
     canvasRef.current.width = webcamRef.current.video.videoWidth;
     canvasRef.current.height = webcamRef.current.video.videoHeight;
@@ -133,6 +100,39 @@ const Home = () => {
   };
 
   useEffect(() => {
+    const loadModel = async () => {
+      const holistic = new Holistic({
+        locateFile: (file) => {
+          return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.3.1620694839/${file}`;
+        },
+      });
+      holistic.setOptions({
+        modelComplexity: 1,
+        smoothLandmarks: true,
+        enableSegmentation: true,
+        smoothSegmentation: true,
+        refineFaceLandmarks: true,
+        minDetectionConfidence: 0.5,
+        minTrackingConfidence: 0.5,
+      });
+
+      holistic.onResults(onResults);
+
+      if (
+        typeof webcamRef.current !== "undefined" &&
+        webcamRef.current !== null
+      ) {
+        const camera = new Camera(webcamRef.current.video, {
+          onFrame: async () => {
+            await holistic.send({ image: webcamRef.current.video });
+          },
+          width: 1280,
+          height: 720,
+        });
+        camera.start();
+      }
+    };
+
     loadModel();
   }, []);
 
@@ -143,13 +143,13 @@ const Home = () => {
           ref={webcamRef}
           className={`rounded-xl shadow-xl border ${
             showVideo ? "block" : "hidden"
-          } hover:ring-2 hover:ring-[rgb(0,217,231)] w-11/12 max-w-lg ring-offset-2 transition-all delay-300 ease-in-out`}
+          } hover:ring-2 hover:ring-[rgb(0,217,231)] w-11/12 max-w-xl ring-offset-2 transition-all delay-300 ease-in-out`}
           mirrored={true}
         />
 
         <canvas
           ref={canvasRef}
-          className="rounded-xl w-11/12 max-w-lg shadow-xl border hover:ring-2 hover:ring-[rgb(255,138,0)] ring-offset-2 transition-all delay-300 ease-in-out"
+          className="rounded-xl w-11/12 max-w-xl shadow-xl border hover:ring-2 hover:ring-[rgb(255,138,0)] ring-offset-2 transition-all delay-300 ease-in-out"
           style={{
             transform: "scaleX(-1)",
           }}
