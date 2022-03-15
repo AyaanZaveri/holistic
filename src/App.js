@@ -75,7 +75,6 @@ const Home = () => {
       results.rightHandLandmarks ||
       results.leftHandLandmarks
     ) {
-      
       // Pose
 
       drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, {
