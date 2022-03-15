@@ -3,7 +3,7 @@ import React, { useRef, useEffect, useState } from "react";
 import {
   drawConnectors,
   drawLandmarks,
-  lerp
+  lerp,
 } from "@mediapipe/drawing_utils/drawing_utils";
 import { Camera } from "@mediapipe/camera_utils/camera_utils";
 import {
@@ -19,7 +19,40 @@ const Home = () => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
 
-  const [toggle, setToggle] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
+
+  const loadModel = async () => {
+    const holistic = new Holistic({
+      locateFile: (file) => {
+        return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.3.1620694839/${file}`;
+      },
+    });
+    holistic.setOptions({
+      modelComplexity: 1,
+      smoothLandmarks: true,
+      enableSegmentation: true,
+      smoothSegmentation: true,
+      refineFaceLandmarks: true,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5,
+    });
+
+    holistic.onResults(onResults);
+
+    if (
+      typeof webcamRef.current !== "undefined" &&
+      webcamRef.current !== null
+    ) {
+      const camera = new Camera(webcamRef.current.video, {
+        onFrame: async () => {
+          await holistic.send({ image: webcamRef.current.video });
+        },
+        width: 1280,
+        height: 720,
+      });
+      camera.start();
+    }
+  };
 
   const onResults = async (results) => {
     canvasRef.current.width = webcamRef.current.video.videoWidth;
@@ -42,6 +75,7 @@ const Home = () => {
       results.rightHandLandmarks ||
       results.leftHandLandmarks
     ) {
+      
       // Pose
 
       drawConnectors(canvasCtx, results.poseLandmarks, POSE_CONNECTIONS, {
@@ -100,36 +134,7 @@ const Home = () => {
   };
 
   useEffect(() => {
-    const holistic = new Holistic({
-      locateFile: (file) => {
-        return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.3.1620694839/${file}`;
-      },
-    });
-    holistic.setOptions({
-      modelComplexity: 1,
-      smoothLandmarks: true,
-      enableSegmentation: true,
-      smoothSegmentation: true,
-      refineFaceLandmarks: true,
-      minDetectionConfidence: 0.5,
-      minTrackingConfidence: 0.5,
-    });
-
-    holistic.onResults(onResults);
-
-    if (
-      typeof webcamRef.current !== "undefined" &&
-      webcamRef.current !== null
-    ) {
-      const camera = new Camera(webcamRef.current.video, {
-        onFrame: async () => {
-          await holistic.send({ image: webcamRef.current.video });
-        },
-        width: 1280,
-        height: 720,
-      });
-      camera.start();
-    }
+    loadModel();
   }, []);
 
   return (
@@ -138,7 +143,7 @@ const Home = () => {
         <Webcam
           ref={webcamRef}
           className={`h-[480px] w-[640px] rounded-xl shadow-xl border ${
-            toggle ? "block" : "hidden"
+            showVideo ? "block" : "hidden"
           } hover:ring-2 hover:ring-[rgb(0,217,231)] ring-offset-2 transition-all delay-300 ease-in-out`}
           mirrored={true}
         />
@@ -154,7 +159,11 @@ const Home = () => {
 
       <div className="inline-flex gap-2 items-center">
         <label>Show video?</label>
-        <input onClick={() => setToggle(!toggle)} type="checkbox" />
+        <input
+          value={showVideo}
+          onClick={() => setShowVideo(!showVideo)}
+          type="checkbox"
+        />
       </div>
 
       {/* <h1 className="text-2xl">
