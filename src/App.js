@@ -3,7 +3,11 @@ import React, { useRef, useEffect, useState } from "react";
 import {
   drawConnectors,
   drawLandmarks,
+<<<<<<< HEAD
   lerp,
+=======
+  lerp
+>>>>>>> b20d47f7643b48d3eafcd3ba3104650270150777
 } from "@mediapipe/drawing_utils/drawing_utils";
 import { Camera } from "@mediapipe/camera_utils/camera_utils";
 import {
@@ -137,15 +141,23 @@ const Home = () => {
       <div className="flex flex-row gap-3">
         <Webcam
           ref={webcamRef}
+<<<<<<< HEAD
           className={`h-[480px] w-[640px] rounded-xl shadow-xl border ${
             toggle ? "block" : "hidden"
           } hover:ring-2 hover:ring-[rgb(0,217,231)] ring-offset-2 transition-all delay-300 ease-in-out`}
+=======
+          className={`h-[480px] w-[640px] rounded-xl shadow-xl border ${toggle ? "block" : "hidden"} hover:ring-2 hover:ring-blue-500 ring-offset-2 transition-all delay-300 ease-in-out`}
+>>>>>>> b20d47f7643b48d3eafcd3ba3104650270150777
           mirrored={true}
         />
 
         <canvas
           ref={canvasRef}
+<<<<<<< HEAD
           className="h-[480px] w-[640px] rounded-xl shadow-xl border hover:ring-2 hover:ring-[rgb(255,138,0)] ring-offset-2 transition-all delay-300 ease-in-out"
+=======
+          className="h-[480px] w-[640px] rounded-xl shadow-xl border hover:ring-2 hover:ring-blue-500 ring-offset-2 transition-all delay-300 ease-in-out"
+>>>>>>> b20d47f7643b48d3eafcd3ba3104650270150777
           style={{
             transform: "scaleX(-1)",
           }}
