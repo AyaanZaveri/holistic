@@ -18,7 +18,6 @@ import {
 const Home = () => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  const drawCanvasRef = useRef(null);
 
   const [showVideo, setShowVideo] = useState(false);
 
