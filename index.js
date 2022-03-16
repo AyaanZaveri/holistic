@@ -1,15 +1,22 @@
 // Move the mouse across the screen as a sine wave.
 var robot = require("robotjs");
+var axios = require("axios");
 
 // Speed up the mouse.
 robot.setMouseDelay(2);
 
-var twoPI = Math.PI * 2.0;
-var screenSize = robot.getScreenSize();
-var height = screenSize.height / 2 - 10;
-var width = screenSize.width;
+const getData = () => {
+  axios
+    .get("https://notch-spicy-melody.glitch.me/pose")
+    .then((response) => {
+      var last = response.data[response.data.length - 1];
+      console.log(last);
+      // robot.moveMouse(last.x * 1920, last.y * 1080);
+      // console.log(last);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
-for (var x = 0; x < width; x++) {
-  let y = height * Math.sin((twoPI * x) / width) + height;
-  robot.moveMouse(x, y);
-}
+setInterval(getData, 3000);

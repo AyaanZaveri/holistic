@@ -14,12 +14,10 @@ import {
   POSE_LANDMARKS_LEFT,
   POSE_LANDMARKS_RIGHT,
 } from "@mediapipe/holistic";
-import axios from "axios"
 
 const Home = () => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
-  const drawCanvasRef = useRef(null);
 
   const [showVideo, setShowVideo] = useState(false);
 
@@ -30,17 +28,6 @@ const Home = () => {
     const canvasElement = canvasRef.current;
     const canvasCtx = canvasElement.getContext("2d");
     canvasCtx.save();
-
-    const { x: indexX, y: indexY } = results.rightHandLandmarks
-      ? results?.rightHandLandmarks[8]
-      : 0;
-
-    // axios.post("http://localhost:8000/pose", {
-    //   x: indexX,
-    //   y: indexY
-    // });
-
-    console.lgo(indexX, indexY)
 
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
     canvasCtx.drawImage(
