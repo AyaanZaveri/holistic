@@ -18,15 +18,18 @@ import {
 const Home = () => {
   const webcamRef = useRef(null);
   const canvasRef = useRef(null);
+  const drawCanvasRef = useRef(null);
 
   const [showVideo, setShowVideo] = useState(false);
 
   const onResults = async (results) => {
-    canvasRef.current.width = webcamRef.current.video.videoWidth;
-    canvasRef.current.height = webcamRef.current.video.videoHeight;
-
+    
     const canvasElement = canvasRef.current;
     const canvasCtx = canvasElement.getContext("2d");
+    
+    canvasElement.width = webcamRef.current.video.videoWidth;
+    canvasElement.height = webcamRef.current.video.videoHeight;
+
     canvasCtx.save();
 
     canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
